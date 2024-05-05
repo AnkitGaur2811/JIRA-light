@@ -1,4 +1,4 @@
-package com.jiralight.ProdManagement.Entities;
+package com.jiralight.ProdManagement.entities;
 
 import java.util.Date;
 
@@ -29,7 +29,7 @@ public class User {
     @Column(nullable = false)
     private boolean isEmp;
 
-    @Column
+    @Column(nullable = true)
     private Long companyId;
 
     @Column(nullable = false, unique = true)
