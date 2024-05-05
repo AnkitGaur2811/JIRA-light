@@ -18,13 +18,13 @@ public class User {
     private Long userId;
 
     @Column(nullable = false)
-    private String UserName;
+    private String userName;
 
     @Column(nullable = false, unique = true)
-    private String UserEmail;
+    private String userEmail;
 
     @Column(nullable = false)
-    private String UserPassword;
+    private String userPassword;
 
     @Column(nullable = false)
     private boolean isEmp;
@@ -43,8 +43,8 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [userId=" + userId + ", UserName=" + UserName + ", UserEmail=" + UserEmail + ", UserPassword="
-                + UserPassword + ", isEmp=" + isEmp + ", companyId=" + companyId + ", userMobile=" + userMobile
+        return "User [userId=" + userId + ", UserName=" + userName + ", UserEmail=" + userEmail + ", UserPassword="
+                + userPassword + ", isEmp=" + isEmp + ", companyId=" + companyId + ", userMobile=" + userMobile
                 + ", createdOn=" + createdOn + ", lastLogin=" + lastLogin + "]";
     }
 
@@ -57,27 +57,27 @@ public class User {
     }
 
     public String getUserName() {
-        return UserName;
+        return userName;
     }
 
     public void setUserName(String userName) {
-        UserName = userName;
+        this.userName = userName;
     }
 
     public String getUserEmail() {
-        return UserEmail;
+        return userEmail;
     }
 
     public void setUserEmail(String userEmail) {
-        UserEmail = userEmail;
+        this.userEmail = userEmail;
     }
 
     public String getUserPassword() {
-        return UserPassword;
+        return userPassword;
     }
 
     public void setUserPassword(String userPassword) {
-        UserPassword = userPassword;
+        this.userPassword = userPassword;
     }
 
     public boolean isEmp() {
