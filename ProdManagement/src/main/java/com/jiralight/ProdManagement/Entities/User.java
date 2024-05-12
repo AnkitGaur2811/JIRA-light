@@ -29,6 +29,9 @@ public class User {
     @Column(nullable = false)
     private boolean isEmp;
 
+    @Column(nullable = false)
+    private boolean isAdmin;
+
     @Column(nullable = true)
     private Long companyId;
 
@@ -44,7 +47,7 @@ public class User {
     @Override
     public String toString() {
         return "User [userId=" + userId + ", UserName=" + userName + ", UserEmail=" + userEmail + ", UserPassword="
-                + userPassword + ", isEmp=" + isEmp + ", companyId=" + companyId + ", userMobile=" + userMobile
+                + userPassword + ", isEmp=" + isEmp + ", isAdmin=" + isAdmin + ", companyId=" + companyId + ", userMobile=" + userMobile
                 + ", createdOn=" + createdOn + ", lastLogin=" + lastLogin + "]";
     }
 
@@ -85,6 +88,14 @@ public class User {
     }
 
     public void setEmp(boolean isEmp) {
+        this.isEmp = isEmp;
+    }
+
+    public boolean isAdmin() {
+        return isEmp;
+    }
+
+    public void setAdmin(boolean isEmp) {
         this.isEmp = isEmp;
     }
 

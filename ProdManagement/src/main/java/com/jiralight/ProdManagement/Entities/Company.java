@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,17 +21,11 @@ private Long companyId;
 @Column(nullable = false)
 private String companyName;
 
-@Column(nullable = false,unique = true)
-private String adminEmail;
-
-@Column(nullable = false)
-private String adminPassword;
+@Column(nullable = false,unique = true)@ManyToOne
+private Long adminId;
 
 @Column(nullable = false,unique = true)
 private String empKey;
-
-@Column(nullable = false)
-private String companyMobile;
 
 @Column(nullable = false)
 private Date createdOn;
@@ -40,9 +35,8 @@ private Date lastLogin;
 
 @Override
 public String toString() {
-    return "Company [companyId=" + companyId + ", companyName=" + companyName + ", adminEmail=" + adminEmail
-            + ", adminPassword=" + adminPassword + ", empKey=" + empKey + ", companyMobile=" + companyMobile
-            + ", createdOn=" + createdOn + ", lastLogin=" + lastLogin + "]";
+    return "Company [companyId=" + companyId + ", companyName=" + companyName + ", empKey=" + empKey + 
+    ", createdOn=" + createdOn + ", lastLogin=" + lastLogin + "]";
 }
 
 public Long getCompanyId() {
@@ -61,36 +55,12 @@ public void setCompanyName(String companyName) {
     this.companyName = companyName;
 }
 
-public String getAdminEmail() {
-    return adminEmail;
-}
-
-public void setAdminEmail(String adminEmail) {
-    this.adminEmail = adminEmail;
-}
-
-public String getAdminPassword() {
-    return adminPassword;
-}
-
-public void setAdminPassword(String adminPassword) {
-    this.adminPassword = adminPassword;
-}
-
 public String getEmpKey() {
     return empKey;
 }
 
 public void setEmpKey(String empKey) {
     this.empKey = empKey;
-}
-
-public String getCompanyMobile() {
-    return companyMobile;
-}
-
-public void setCompanyMobile(String companyMobile) {
-    this.companyMobile = companyMobile;
 }
 
 public Date getCreatedOn() {
