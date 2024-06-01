@@ -18,4 +18,31 @@ public class Stage_master {
     @Column(nullable = false)
     private String stageName;
     
+    public Stage_master() {}
+
+    public Stage_master(String stageName) {
+        this.stageName = stageName;
+    }
+
+    // Getters and Setters
+    public Long getStageId() {
+        return stageId;
+    }
+
+    public void setStageId(Long stageId) {
+        this.stageId = stageId;
+    }
+
+    public String getStageName() {
+        return stageName;
+    }
+
+    public void setStageName(String stageName) {
+        this.stageName = stageName;
+    }
+
+    @Override
+    public String toString() {
+        return "StageMaster [stageId=" + stageId + ", stageName=" + stageName + "]";
+    }
 }

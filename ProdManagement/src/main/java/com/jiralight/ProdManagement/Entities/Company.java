@@ -1,83 +1,121 @@
 package com.jiralight.ProdManagement.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name= "company")
+@Table(name = "company")
 public class Company {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long companyId;
+
+    @Column(nullable = false)
+    private String companyName;
+
     
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long companyId;
+    @Column(nullable = false, unique = true)
+    private String empKey;
+    
+    @Column(nullable = false)
+    private Date createdOn;
+    
+    @Column(nullable = false)
+    private Date lastLogin;
+    
+    @ManyToOne
+    @JoinColumn(name = "adminUserId", nullable = false, unique = true)
+    private User adminUser;
 
-@Column(nullable = false)
-private String companyName;
+    @OneToMany(mappedBy = "company")
+    private List<User> users;
 
-@Column(nullable = false,unique = true)@ManyToOne
-private Long adminId;
+    public Company() {
+    }
 
-@Column(nullable = false,unique = true)
-private String empKey;
+    public Company(Long companyId, String companyName, String empKey, Date createdOn, Date lastLogin, User adminUser,
+            List<User> users) {
+        this.companyId = companyId;
+        this.companyName = companyName;
+        this.empKey = empKey;
+        this.createdOn = createdOn;
+        this.lastLogin = lastLogin;
+        this.adminUser = adminUser;
+        this.users = users;
+    }
 
-@Column(nullable = false)
-private Date createdOn;
+    @Override
+    public String toString() {
+        return "Company [companyId=" + companyId + ", companyName=" + companyName + ", empKey=" + empKey
+                + ", createdOn=" + createdOn + ", lastLogin=" + lastLogin + ", adminUser=" + adminUser.toString() + ", users="
+                + users + "]";
+    }
 
-@Column(nullable = false)
-private Date lastLogin;
+    public Long getCompanyId() {
+        return companyId;
+    }
 
-@Override
-public String toString() {
-    return "Company [companyId=" + companyId + ", companyName=" + companyName + ", empKey=" + empKey + 
-    ", createdOn=" + createdOn + ", lastLogin=" + lastLogin + "]";
-}
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
 
-public Long getCompanyId() {
-    return companyId;
-}
+    public String getCompanyName() {
+        return companyName;
+    }
 
-public void setCompanyId(Long companyId) {
-    this.companyId = companyId;
-}
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
-public String getCompanyName() {
-    return companyName;
-}
+    public String getEmpKey() {
+        return empKey;
+    }
 
-public void setCompanyName(String companyName) {
-    this.companyName = companyName;
-}
+    public void setEmpKey(String empKey) {
+        this.empKey = empKey;
+    }
 
-public String getEmpKey() {
-    return empKey;
-}
+    public Date getCreatedOn() {
+        return createdOn;
+    }
 
-public void setEmpKey(String empKey) {
-    this.empKey = empKey;
-}
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
+    }
 
-public Date getCreatedOn() {
-    return createdOn;
-}
+    public Date getLastLogin() {
+        return lastLogin;
+    }
 
-public void setCreatedOn(Date createdOn) {
-    this.createdOn = createdOn;
-}
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
+    }
 
-public Date getLastLogin() {
-    return lastLogin;
-}
+    public User getAdminUser() {
+        return adminUser;
+    }
 
-public void setLastLogin(Date lastLogin) {
-    this.lastLogin = lastLogin;
-}
+    public void setAdminUser(User adminUser) {
+        this.adminUser = adminUser;
+    }
 
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 
 }

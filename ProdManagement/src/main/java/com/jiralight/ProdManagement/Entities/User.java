@@ -1,12 +1,16 @@
 package com.jiralight.ProdManagement.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -32,23 +36,59 @@ public class User {
     @Column(nullable = false)
     private boolean isAdmin;
 
-    @Column(nullable = true)
-    private Long companyId;
-
+    
     @Column(nullable = false, unique = true)
     private String userMobile;
-
+    
     @Column(nullable = false)
     private Date createdOn;
-
+    
     @Column(nullable = false)
     private Date lastLogin;
 
+    @ManyToOne
+    @JoinColumn(name = "companyId", nullable = true)
+    private Company company;
+
+    @OneToMany(mappedBy = "assigneeId")
+    private List<Task> tasks;
+
+    @OneToMany(mappedBy = "user")
+    private List<OTP_verfication> otps;
+
+    @OneToMany(mappedBy = "ownerId")
+    private List<Board> boards;
+
+    @Column(nullable = false)
+    private boolean otpVerified;
+
+    public User() {}
+
+    public User(Long userId, String userName, String userEmail, String userPassword, boolean isEmp, boolean isAdmin,
+            String userMobile, Date createdOn, Date lastLogin, Company company, List<Task> tasks,
+            List<OTP_verfication> otps, List<Board> boards, boolean otpVerified) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+        this.isEmp = isEmp;
+        this.isAdmin = isAdmin;
+        this.userMobile = userMobile;
+        this.createdOn = createdOn;
+        this.lastLogin = lastLogin;
+        this.company = company;
+        this.tasks = tasks;
+        this.otps = otps;
+        this.boards = boards;
+        this.otpVerified = otpVerified;
+    }
+
     @Override
     public String toString() {
-        return "User [userId=" + userId + ", UserName=" + userName + ", UserEmail=" + userEmail + ", UserPassword="
-                + userPassword + ", isEmp=" + isEmp + ", isAdmin=" + isAdmin + ", companyId=" + companyId + ", userMobile=" + userMobile
-                + ", createdOn=" + createdOn + ", lastLogin=" + lastLogin + "]";
+        return "User [userId=" + userId + ", userName=" + userName + ", userEmail=" + userEmail + ", userPassword="
+                + userPassword + ", isEmp=" + isEmp + ", isAdmin=" + isAdmin + ", userMobile=" + userMobile
+                + ", createdOn=" + createdOn + ", lastLogin=" + lastLogin + ", company=" + company.toString() + ", tasks=" + tasks
+                + ", otps=" + otps + ", boards=" + boards + ", otpVerified=" + otpVerified + "]";
     }
 
     public Long getUserId() {
@@ -92,19 +132,11 @@ public class User {
     }
 
     public boolean isAdmin() {
-        return isEmp;
+        return isAdmin;
     }
 
-    public void setAdmin(boolean isEmp) {
-        this.isEmp = isEmp;
-    }
-
-    public Long getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public String getUserMobile() {
@@ -129,6 +161,46 @@ public class User {
 
     public void setLastLogin(Date lastLogin) {
         this.lastLogin = lastLogin;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public List<OTP_verfication> getOtps() {
+        return otps;
+    }
+
+    public void setOtps(List<OTP_verfication> otps) {
+        this.otps = otps;
+    }
+
+    public List<Board> getBoards() {
+        return boards;
+    }
+
+    public void setBoards(List<Board> boards) {
+        this.boards = boards;
+    }
+
+    public boolean isOtpVerified() {
+        return otpVerified;
+    }
+
+    public void setOtpVerified(boolean otpVerified) {
+        this.otpVerified = otpVerified;
     }
 
     

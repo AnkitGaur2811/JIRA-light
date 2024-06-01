@@ -8,6 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -22,29 +25,45 @@ public class Board {
     @Column(nullable = false)
     private boolean isPersonal; 
 
-    @Column(nullable = false)@ManyToOne
-    private Long ownerId;
+    @ManyToOne
+    @JoinColumn(name = "ownerId", nullable = false)
+    private User ownerId;
 
     @Column(nullable = false)
     private Date createdOn;
 
-    @Column(nullable = false)
-    private Long createdBy;
+    @ManyToOne
+    @JoinColumn(name = "createdBy", nullable = false)
+    private User createdBy;
 
     @Column(nullable = false)
     private Date updatedOn;
     
-    @Column(nullable = false)
-    private Long updatedBy;
+    @ManyToOne
+    @JoinColumn(name = "updatedBy", nullable = false)
+    private User updatedBy;
     
-    @Column(nullable = false)
-    private List<Long> stageList; 
-    
-    @Override
-    public String toString() {
-        return "Board [boardId=" + boardId + ", isPersonal=" + isPersonal + ", ownerId=" + ownerId + ", createdOn="
-                + createdOn + ", createdBy=" + createdBy + ", updatedOn=" + updatedOn + ", updatedBy=" + updatedBy
-                + ", stageList= " + stageList + "]";
+     @ManyToMany
+    @JoinTable(
+        name = "board_stages",
+        joinColumns = @JoinColumn(name = "boardId"),
+        inverseJoinColumns = @JoinColumn(name = "stageId")
+    )
+    private List<Stage_master> stageList;
+
+    public Board() {
+    }
+
+    public Board(Long boardId, boolean isPersonal, User ownerId, Date createdOn, User createdBy, Date updatedOn,
+            User updatedBy, List<Stage_master> stageList) {
+        this.boardId = boardId;
+        this.isPersonal = isPersonal;
+        this.ownerId = ownerId;
+        this.createdOn = createdOn;
+        this.createdBy = createdBy;
+        this.updatedOn = updatedOn;
+        this.updatedBy = updatedBy;
+        this.stageList = stageList;
     }
 
     public Long getBoardId() {
@@ -63,11 +82,11 @@ public class Board {
         this.isPersonal = isPersonal;
     }
 
-    public Long getOwnerId() {
+    public User getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(Long ownerId) {
+    public void setOwnerId(User ownerId) {
         this.ownerId = ownerId;
     }
 
@@ -79,11 +98,11 @@ public class Board {
         this.createdOn = createdOn;
     }
 
-    public Long getCreatedBy() {
+    public User getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(Long createdBy) {
+    public void setCreatedBy(User createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -95,21 +114,28 @@ public class Board {
         this.updatedOn = updatedOn;
     }
 
-    public Long getUpdatedBy() {
+    public User getUpdatedBy() {
         return updatedBy;
     }
 
-    public void setUpdatedBy(Long updatedBy) {
+    public void setUpdatedBy(User updatedBy) {
         this.updatedBy = updatedBy;
     }
 
-    public List<Long> getStageList() {
+    public List<Stage_master> getStageList() {
         return stageList;
     }
 
-    public void setStageList(List<Long> stageList) {
+    public void setStageList(List<Stage_master> stageList) {
         this.stageList = stageList;
     }
 
+    @Override
+    public String toString() {
+        return "Board [boardId=" + boardId + ", isPersonal=" + isPersonal + ", ownerId=" + ownerId.toString() + ", createdOn="
+                + createdOn + ", createdBy=" + createdBy.toString() + ", updatedOn=" + updatedOn + ", updatedBy=" + updatedBy.toString()
+                + ", stageList=" + stageList + "]";
+    } 
+    
     
 }

@@ -7,47 +7,59 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "otpVerification")
 public class OTP_verfication {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @Column(nullable = false)
     private String mobileNumber;
 
-    @Column(nullable = false)@ManyToOne
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
 
     @Column(nullable = false)
-    private String OTP;
+    private String otp;
 
     @Column(nullable = false)
     private boolean isVerified;
 
     @Column(nullable = false)
     private Date updatedOn;
-    
-    @Column(nullable = false)
-    private Long updatedBy;
 
-    @Override
-    public String toString() {
-        return "OTP_verfication [Id=" + Id + ", mobileNumber=" + mobileNumber + ", userId=" + userId + ", OTP=" + OTP
-                + ", isVerified=" + isVerified + ", updatedOn=" + updatedOn + ", updatedBy=" + updatedBy + "]";
+    @ManyToOne
+    @JoinColumn(name = "updatedBy", nullable = false)
+    private User updatedBy;
+
+    // Constructors
+    public OTP_verfication() {
     }
 
+    public OTP_verfication(String mobileNumber, User user, String otp, boolean isVerified, Date updatedOn,
+            User updatedBy) {
+        this.mobileNumber = mobileNumber;
+        this.user = user;
+        this.otp = otp;
+        this.isVerified = isVerified;
+        this.updatedOn = updatedOn;
+        this.updatedBy = updatedBy;
+    }
+
+    // Getters and Setters
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getMobileNumber() {
@@ -58,20 +70,20 @@ public class OTP_verfication {
         this.mobileNumber = mobileNumber;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public String getOTP() {
-        return OTP;
+    public String getOtp() {
+        return otp;
     }
 
-    public void setOTP(String oTP) {
-        OTP = oTP;
+    public void setOtp(String otp) {
+        this.otp = otp;
     }
 
     public boolean isVerified() {
@@ -90,13 +102,18 @@ public class OTP_verfication {
         this.updatedOn = updatedOn;
     }
 
-    public Long getUpdatedBy() {
+    public User getUpdatedBy() {
         return updatedBy;
     }
 
-    public void setUpdatedBy(Long updatedBy) {
+    public void setUpdatedBy(User updatedBy) {
         this.updatedBy = updatedBy;
     }
 
-    
+    @Override
+    public String toString() {
+        return "OtpVerification [id=" + id + ", mobileNumber=" + mobileNumber + ", user=" + user + ", otp=" + otp
+                + ", isVerified=" + isVerified + ", updatedOn=" + updatedOn + ", updatedBy=" + updatedBy + "]";
+    }
+
 }

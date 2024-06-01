@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -25,37 +26,51 @@ public class Task {
     @Column(nullable = true)
     private String description;
     
-    @Column(nullable = false)@ManyToOne
-    private Long assigneeId;
+    @ManyToOne
+    @JoinColumn(name = "assigneeId", nullable = false)
+    private User assigneeId;
     
-    @Column(nullable = false)@ManyToOne
-    private Long boardId;
+    @ManyToOne
+    @JoinColumn(name = "boardId", nullable = false)
+    private Board boardId;
     
     @Column(nullable = false)
     private Date createdOn;
     
-    @Column(nullable = false)
-    private Long createdBy;
+    @ManyToOne
+    @JoinColumn(name = "createdBy", nullable = false)
+    private User createdBy;
     
     @Column(nullable = false)
     private Date updatedOn;
     
-    @Column(nullable = false)
-    private Long updatedBy;
+    @ManyToOne
+    @JoinColumn(name = "updatedBy", nullable = false)
+    private User updatedBy;
     
-    @Column(nullable = false)@ManyToOne
-    private Long stageId;
+    @ManyToOne
+    @JoinColumn(name = "stageId", nullable = false)
+    private Stage_master stageId;
     
     @Column(nullable = false)
     private Date dueDate;
-    
 
-    @Override
-    public String toString() {
-        return "Task [taskId=" + taskId + ", summary=" + summary + ", description=" + description + ", assigneeId="
-                + assigneeId + ", createdOn=" + createdOn + ", createdBy=" + createdBy + ", updatedOn=" + updatedOn
-                + ", updatedBy=" + updatedBy + ", stageId=" + stageId + ", dueDate=" + dueDate + ", boardId=" + boardId
-                + "]";
+    public Task() {
+    }
+
+    public Task(Long taskId, String summary, String description, User assigneeId, Board boardId, Date createdOn,
+            User createdBy, Date updatedOn, User updatedBy, Stage_master stageId, Date dueDate) {
+        this.taskId = taskId;
+        this.summary = summary;
+        this.description = description;
+        this.assigneeId = assigneeId;
+        this.boardId = boardId;
+        this.createdOn = createdOn;
+        this.createdBy = createdBy;
+        this.updatedOn = updatedOn;
+        this.updatedBy = updatedBy;
+        this.stageId = stageId;
+        this.dueDate = dueDate;
     }
 
     public Long getTaskId() {
@@ -82,12 +97,20 @@ public class Task {
         this.description = description;
     }
 
-    public Long getAssigneeId() {
+    public User getAssigneeId() {
         return assigneeId;
     }
 
-    public void setAssigneeId(Long assigneeId) {
+    public void setAssigneeId(User assigneeId) {
         this.assigneeId = assigneeId;
+    }
+
+    public Board getBoardId() {
+        return boardId;
+    }
+
+    public void setBoardId(Board boardId) {
+        this.boardId = boardId;
     }
 
     public Date getCreatedOn() {
@@ -98,11 +121,11 @@ public class Task {
         this.createdOn = createdOn;
     }
 
-    public Long getCreatedBy() {
+    public User getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(Long createdBy) {
+    public void setCreatedBy(User createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -114,19 +137,19 @@ public class Task {
         this.updatedOn = updatedOn;
     }
 
-    public Long getUpdatedBy() {
+    public User getUpdatedBy() {
         return updatedBy;
     }
 
-    public void setUpdatedBy(Long updatedBy) {
+    public void setUpdatedBy(User updatedBy) {
         this.updatedBy = updatedBy;
     }
 
-    public Long getStageId() {
+    public Stage_master getStageId() {
         return stageId;
     }
 
-    public void setStageId(Long stageId) {
+    public void setStageId(Stage_master stageId) {
         this.stageId = stageId;
     }
 
@@ -138,13 +161,14 @@ public class Task {
         this.dueDate = dueDate;
     }
 
-    public Long getBoardId() {
-        return boardId;
+    @Override
+    public String toString() {
+        return "Task [taskId=" + taskId + ", summary=" + summary + ", description=" + description + ", assigneeId="
+                + assigneeId.toString() + ", boardId=" + boardId + ", createdOn=" + createdOn + ", createdBy=" + createdBy.toString()
+                + ", updatedOn=" + updatedOn + ", updatedBy=" + updatedBy.toString() + ", stageId=" + stageId.toString() + ", dueDate="
+                + dueDate + "]";
     }
-
-    public void setBoardId(Long boardId) {
-        this.boardId = boardId;
-    }
-
     
+    
+
 }
