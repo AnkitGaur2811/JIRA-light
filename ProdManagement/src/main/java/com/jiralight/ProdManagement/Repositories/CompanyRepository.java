@@ -1,5 +1,9 @@
 package com.jiralight.ProdManagement.Repositories;
 
-public class CompanyRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.jiralight.ProdManagement.entities.Company;
+
+public interface CompanyRepository extends JpaRepository<Company,Long> {
     
 }

@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -28,6 +29,10 @@ public class Board {
     @ManyToOne
     @JoinColumn(name = "ownerId", nullable = false)
     private User ownerId;
+
+    @ManyToOne
+    @JoinColumn(name = "companyId", nullable = true)
+    private Company company;
 
     @Column(nullable = false)
     private Date createdOn;
@@ -51,19 +56,31 @@ public class Board {
     )
     private List<Stage_master> stageList;
 
+    @OneToMany(mappedBy = "boardId")
+    private List<Task> tasks;
+
     public Board() {
     }
 
-    public Board(Long boardId, boolean isPersonal, User ownerId, Date createdOn, User createdBy, Date updatedOn,
-            User updatedBy, List<Stage_master> stageList) {
+    public Board(Long boardId, boolean isPersonal, User ownerId, Company company, Date createdOn, User createdBy,
+            Date updatedOn, User updatedBy, List<Stage_master> stageList, List<Task> tasks) {
         this.boardId = boardId;
         this.isPersonal = isPersonal;
         this.ownerId = ownerId;
+        this.company = company;
         this.createdOn = createdOn;
         this.createdBy = createdBy;
         this.updatedOn = updatedOn;
         this.updatedBy = updatedBy;
         this.stageList = stageList;
+        this.tasks = tasks;
+    }
+
+    @Override
+    public String toString() {
+        return "Board [boardId=" + boardId + ", isPersonal=" + isPersonal + ", ownerId=" + ownerId + ", company="
+                + company + ", createdOn=" + createdOn + ", createdBy=" + createdBy + ", updatedOn=" + updatedOn
+                + ", updatedBy=" + updatedBy + ", stageList=" + stageList + ", tasks=" + tasks + "]";
     }
 
     public Long getBoardId() {
@@ -88,6 +105,14 @@ public class Board {
 
     public void setOwnerId(User ownerId) {
         this.ownerId = ownerId;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public Date getCreatedOn() {
@@ -130,12 +155,13 @@ public class Board {
         this.stageList = stageList;
     }
 
-    @Override
-    public String toString() {
-        return "Board [boardId=" + boardId + ", isPersonal=" + isPersonal + ", ownerId=" + ownerId.toString() + ", createdOn="
-                + createdOn + ", createdBy=" + createdBy.toString() + ", updatedOn=" + updatedOn + ", updatedBy=" + updatedBy.toString()
-                + ", stageList=" + stageList + "]";
-    } 
-    
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     
 }

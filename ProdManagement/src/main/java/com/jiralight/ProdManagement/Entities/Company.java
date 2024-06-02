@@ -39,27 +39,31 @@ public class Company {
     private User adminUser;
 
     @OneToMany(mappedBy = "company")
-    private List<User> users;
+    private List<User> employees;
+
+    @OneToMany(mappedBy = "company")
+    private List<Board> boards;
 
     public Company() {
     }
 
     public Company(Long companyId, String companyName, String empKey, Date createdOn, Date lastLogin, User adminUser,
-            List<User> users) {
+            List<User> employees, List<Board> boards) {
         this.companyId = companyId;
         this.companyName = companyName;
         this.empKey = empKey;
         this.createdOn = createdOn;
         this.lastLogin = lastLogin;
         this.adminUser = adminUser;
-        this.users = users;
+        this.employees = employees;
+        this.boards = boards;
     }
 
     @Override
     public String toString() {
         return "Company [companyId=" + companyId + ", companyName=" + companyName + ", empKey=" + empKey
-                + ", createdOn=" + createdOn + ", lastLogin=" + lastLogin + ", adminUser=" + adminUser.toString() + ", users="
-                + users + "]";
+                + ", createdOn=" + createdOn + ", lastLogin=" + lastLogin + ", adminUser=" + adminUser + ", employees="
+                + employees + ", boards=" + boards + "]";
     }
 
     public Long getCompanyId() {
@@ -110,12 +114,21 @@ public class Company {
         this.adminUser = adminUser;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<User> getEmployees() {
+        return employees;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setEmployees(List<User> employees) {
+        this.employees = employees;
     }
 
+    public List<Board> getBoards() {
+        return boards;
+    }
+
+    public void setBoards(List<Board> boards) {
+        this.boards = boards;
+    }
+
+    
 }

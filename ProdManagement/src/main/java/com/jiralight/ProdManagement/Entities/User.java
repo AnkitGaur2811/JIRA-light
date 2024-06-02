@@ -35,7 +35,6 @@ public class User {
 
     @Column(nullable = false)
     private boolean isAdmin;
-
     
     @Column(nullable = false, unique = true)
     private String userMobile;
@@ -51,22 +50,21 @@ public class User {
     private Company company;
 
     @OneToMany(mappedBy = "assigneeId")
-    private List<Task> tasks;
-
-    @OneToMany(mappedBy = "user")
-    private List<OTP_verfication> otps;
+    private List<Task> assignedTasks;
 
     @OneToMany(mappedBy = "ownerId")
-    private List<Board> boards;
+    private List<Board> ownedBboards;
 
     @Column(nullable = false)
     private boolean otpVerified;
 
+
     public User() {}
 
+
     public User(Long userId, String userName, String userEmail, String userPassword, boolean isEmp, boolean isAdmin,
-            String userMobile, Date createdOn, Date lastLogin, Company company, List<Task> tasks,
-            List<OTP_verfication> otps, List<Board> boards, boolean otpVerified) {
+            String userMobile, Date createdOn, Date lastLogin, Company company, List<Task> assignedTasks,
+            List<Board> ownedBboards, boolean otpVerified) {
         this.userId = userId;
         this.userName = userName;
         this.userEmail = userEmail;
@@ -77,131 +75,150 @@ public class User {
         this.createdOn = createdOn;
         this.lastLogin = lastLogin;
         this.company = company;
-        this.tasks = tasks;
-        this.otps = otps;
-        this.boards = boards;
+        this.assignedTasks = assignedTasks;
+        this.ownedBboards = ownedBboards;
         this.otpVerified = otpVerified;
     }
+
 
     @Override
     public String toString() {
         return "User [userId=" + userId + ", userName=" + userName + ", userEmail=" + userEmail + ", userPassword="
                 + userPassword + ", isEmp=" + isEmp + ", isAdmin=" + isAdmin + ", userMobile=" + userMobile
-                + ", createdOn=" + createdOn + ", lastLogin=" + lastLogin + ", company=" + company.toString() + ", tasks=" + tasks
-                + ", otps=" + otps + ", boards=" + boards + ", otpVerified=" + otpVerified + "]";
+                + ", createdOn=" + createdOn + ", lastLogin=" + lastLogin + ", company=" + company + ", assignedTasks="
+                + assignedTasks + ", ownedBboards=" + ownedBboards + ", otpVerified=" + otpVerified + "]";
     }
+
 
     public Long getUserId() {
         return userId;
     }
 
+
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
 
     public String getUserName() {
         return userName;
     }
 
+
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
 
     public String getUserEmail() {
         return userEmail;
     }
 
+
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
+
 
     public String getUserPassword() {
         return userPassword;
     }
 
+
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
     }
+
 
     public boolean isEmp() {
         return isEmp;
     }
 
+
     public void setEmp(boolean isEmp) {
         this.isEmp = isEmp;
     }
+
 
     public boolean isAdmin() {
         return isAdmin;
     }
 
+
     public void setAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
+
 
     public String getUserMobile() {
         return userMobile;
     }
 
+
     public void setUserMobile(String userMobile) {
         this.userMobile = userMobile;
     }
+
 
     public Date getCreatedOn() {
         return createdOn;
     }
 
+
     public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
     }
+
 
     public Date getLastLogin() {
         return lastLogin;
     }
 
+
     public void setLastLogin(Date lastLogin) {
         this.lastLogin = lastLogin;
     }
+
 
     public Company getCompany() {
         return company;
     }
 
+
     public void setCompany(Company company) {
         this.company = company;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+
+    public List<Task> getAssignedTasks() {
+        return assignedTasks;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+
+    public void setAssignedTasks(List<Task> assignedTasks) {
+        this.assignedTasks = assignedTasks;
     }
 
-    public List<OTP_verfication> getOtps() {
-        return otps;
+
+    public List<Board> getOwnedBboards() {
+        return ownedBboards;
     }
 
-    public void setOtps(List<OTP_verfication> otps) {
-        this.otps = otps;
+
+    public void setOwnedBboards(List<Board> ownedBboards) {
+        this.ownedBboards = ownedBboards;
     }
 
-    public List<Board> getBoards() {
-        return boards;
-    }
-
-    public void setBoards(List<Board> boards) {
-        this.boards = boards;
-    }
 
     public boolean isOtpVerified() {
         return otpVerified;
     }
 
+
     public void setOtpVerified(boolean otpVerified) {
         this.otpVerified = otpVerified;
     }
 
+    
     
 }

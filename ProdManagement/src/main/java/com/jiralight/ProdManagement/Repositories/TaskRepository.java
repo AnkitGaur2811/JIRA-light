@@ -1,5 +1,9 @@
 package com.jiralight.ProdManagement.Repositories;
 
-public class TaskRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.jiralight.ProdManagement.entities.Task;
+
+public interface TaskRepository extends JpaRepository<Task,Long> {
     
 }
