@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.jiralight.ProdManagement.Config.AuthConfig;
 import com.jiralight.ProdManagement.Repositories.UserRepository;
 import com.jiralight.ProdManagement.Sevices.UserService;
 import com.jiralight.ProdManagement.entities.Board;
@@ -37,7 +36,7 @@ public class UserServiceImpl implements UserService {
 
         user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));// password hashing
 
-        if (userRepository.existsByEmail(user.getUserEmail())) {
+        if (userRepository.existsByUserEmail(user.getUserEmail())) {
             throw new IllegalArgumentException("Email address already exists!"); // Handle duplicate email
         }
 

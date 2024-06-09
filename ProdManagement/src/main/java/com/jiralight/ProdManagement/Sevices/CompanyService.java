@@ -1,19 +1,10 @@
 package com.jiralight.ProdManagement.Sevices;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import com.jiralight.ProdManagement.Repositories.CompanyRepository;
+import com.jiralight.ProdManagement.entities.Company;
 
-@Service
-public class CompanyService {
+public interface CompanyService {
     
-    @Autowired
-    private CompanyRepository companyRepository;
-
-    @Autowired
-    private BoardSevice boardService;
-
-
+    Company saveCompany(Company company);
     
 }

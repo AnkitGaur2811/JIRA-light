@@ -58,10 +58,13 @@ public class User {
     @Column(nullable = false)
     private boolean otpVerified;
 
+    @Column(nullable = true)
+    private String EMPkey;
 
+    
     public User() {}
-
-
+    
+    
     public User(Long userId, String userName, String userEmail, String userPassword, boolean isEmp, boolean isAdmin,
             String userMobile, Date createdOn, Date lastLogin, Company company, List<Task> assignedTasks,
             List<Board> ownedBboards, boolean otpVerified) {
@@ -108,13 +111,13 @@ public class User {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
-
+    
+    
     public String getUserEmail() {
         return userEmail;
     }
-
-
+    
+    
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
@@ -193,13 +196,13 @@ public class User {
     public List<Task> getAssignedTasks() {
         return assignedTasks;
     }
-
-
+    
+    
     public void setAssignedTasks(List<Task> assignedTasks) {
         this.assignedTasks = assignedTasks;
     }
 
-
+    
     public List<Board> getOwnedBboards() {
         return ownedBboards;
     }
@@ -214,11 +217,19 @@ public class User {
         return otpVerified;
     }
 
-
+    
     public void setOtpVerified(boolean otpVerified) {
         this.otpVerified = otpVerified;
     }
+    
+    public String getEMPkey() {
+        return EMPkey;
+    }
 
+
+    public void setEMPkey(String eMPkey) {
+        EMPkey = eMPkey;
+    }
     
     
 }
