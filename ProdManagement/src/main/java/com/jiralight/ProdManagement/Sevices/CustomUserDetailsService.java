@@ -1,5 +1,6 @@
 package com.jiralight.ProdManagement.Sevices;
 
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,22 +10,17 @@ import org.springframework.stereotype.Service;
 
 import com.jiralight.ProdManagement.Repositories.UserRepository;
 import com.jiralight.ProdManagement.entities.User;
-import com.jiralight.ProdManagement.entities.UserDetailsImpl;
 
 @Service
-public class UserDetailsServicenew implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserRepository Urepo;
+    private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String useremail) throws UsernameNotFoundException {
-        if (Urepo.existsByUserEmail(useremail)) {
-            User user = Urepo.findByUserEmail(useremail);
-            return new UserDetailsImpl(user);
-        } else {
-            throw new UsernameNotFoundException("User not found");
-        }
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByUserEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+        return new org.springframework.security.core.userdetails.User(user.getUserEmail(), user.getUserPassword(), new ArrayList<>());
     }
 }
-
