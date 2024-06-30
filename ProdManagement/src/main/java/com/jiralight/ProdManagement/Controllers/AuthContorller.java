@@ -20,6 +20,13 @@ public class AuthContorller {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginDTO loginRequestDTO) {
         authService.authenticateUser(loginRequestDTO);
-        return ResponseEntity.ok("Login successful");
+        boolean isAdmin = authService.isUserAdmin(loginRequestDTO.getEmail());
+        if (isAdmin) {
+            // Redirect or provide admin-specific functionality
+            return ResponseEntity.ok("Admin login successful");
+        } else {
+            // Regular user flow
+            return ResponseEntity.ok("User login successful");
+        }
     }
 }
