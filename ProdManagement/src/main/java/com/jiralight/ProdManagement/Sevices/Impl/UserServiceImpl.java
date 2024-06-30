@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService{
         user.setUserPassword(passwordEncoder.encode(userRegistrationDto.getUserPassword()));
         user.setUserMobile(userRegistrationDto.getUserMobile());
         user.setEmp(userRegistrationDto.isEmp());
+        user.setAdmin(false);
         user.setOtpVerified(false);
         user.setCreatedOn(new Date());
         user.setLastLogin(new Date());
@@ -45,6 +46,29 @@ public class UserServiceImpl implements UserService{
         }
 
         return userRepository.save(user);
+    }
+
+    @Override
+    public User registerUser(User user){
+        User usernew = new User();
+        usernew.setUserName(user.getUserName());
+        usernew.setUserEmail(user.getUserEmail());
+        usernew.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
+        usernew.setUserMobile(user.getUserMobile());
+        usernew.setAdmin(user.isAdmin());
+        usernew.setEmp(false);
+        usernew.setOtpVerified(false);
+        usernew.setCreatedOn(new Date());
+        usernew.setLastLogin(new Date());
+
+        if (usernew.isEmp() && usernew.getEMPkey() != null) {
+            Company company = companyRepository.findByEmpKey(user.getEMPkey());
+            if (company != null) {
+                user.setCompany(company);
+            }
+        }
+
+        return userRepository.save(usernew);
     }
 
 

@@ -8,5 +8,6 @@ import com.jiralight.ProdManagement.entities.User;
 
 public interface UserService {
     User registerNewUser(UserDTO user);
+    User registerUser(User user);
     
 }
